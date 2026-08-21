@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-loop",
-  "description": "DeepSeek Harness plugin: a /loop slash command for timed recurring agent loops (like Claude Code's /loop 30m)",
+  "description": "DeepSeek Harness plugin: a /loop slash command for timed recurring agent loops",
   "version": "0.1.0",
   "license": "MIT",
   "type": "module",

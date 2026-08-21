@@ -1,8 +1,10 @@
 # dsh-plugin-loop
 
+English | [中文](README.zh.md)
+
 A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (DSH)
 plugin that adds a human-facing `/loop` slash command for **timed, recurring
-agent loops** — the DSH equivalent of Claude Code's `/loop 30m`.
+agent loops**.
 
 `/loop 30m` fires one immediate tick, then re-prompts the agent once per
 30-minute interval (measured from the moment the agent returns to idle after

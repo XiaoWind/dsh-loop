@@ -1,8 +1,9 @@
 # dsh-plugin-loop
 
+[English](README.md) | 中文
+
 一个 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（DSH）
-插件，新增人机交互用的 `/loop` 斜杠命令，实现**定时循环**——等价于 Claude Code
-的 `/loop 30m`。
+插件，新增人机交互用的 `/loop` 斜杠命令，实现**定时循环**。
 
 `/loop 30m` 会立即触发一次，之后每隔 30 分钟（从上一次触发后 agent 回到空闲
 状态起算）再次提醒 agent 继续工作，直到你用 `/loop stop` 停止。
