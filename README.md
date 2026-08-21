@@ -1,4 +1,4 @@
-# dsh-plugin-loop
+# dsh-loop
 
 English | [中文](README.zh.md)
 
@@ -14,10 +14,10 @@ the previous tick) until you stop it with `/loop stop`.
 
 ```sh
 # from GitHub (works immediately — no npm publish required)
-dsh plugin --profile web add git+https://github.com/XiaoWind/dsh-plugin-loop.git
+dsh plugin --profile web add git+https://github.com/XiaoWind/dsh-loop.git
 
 # or from npm, once published
-dsh plugin --profile web add dsh-plugin-loop
+dsh plugin --profile web add dsh-loop
 ```
 
 The `dsh plugin` command forwards to `pnpm` inside the `web` profile directory,

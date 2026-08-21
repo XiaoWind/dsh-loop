@@ -1,4 +1,4 @@
-# dsh-plugin-loop
+# dsh-loop
 
 [English](README.md) | 中文
 
@@ -12,10 +12,10 @@
 
 ```sh
 # 从 GitHub 安装（立即可用，无需发布到 npm）
-dsh plugin --profile web add git+https://github.com/XiaoWind/dsh-plugin-loop.git
+dsh plugin --profile web add git+https://github.com/XiaoWind/dsh-loop.git
 
 # 或发布到 npm 后
-dsh plugin --profile web add dsh-plugin-loop
+dsh plugin --profile web add dsh-loop
 ```
 
 `dsh plugin` 会把参数转发给 `web` profile 目录内的 `pnpm`，随后自动把该包加入

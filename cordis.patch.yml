@@ -1,4 +1,4 @@
-# dsh-plugin-loop bundle layer
+# dsh-loop bundle layer
 #
 # A DSH bundle exports a top-level YAML array of include PatchOptions. This
 # file inserts one entry (this package itself) into the booted profile's
@@ -11,7 +11,7 @@
 # `/loop <objective>` (an objective with no leading duration token).
 - insert:
     - id: loop
-      name: dsh-plugin-loop
+      name: dsh-loop
       config:
         # Interval used when `/loop <objective>` has no leading duration
         # token. Milliseconds; default 10 minutes.

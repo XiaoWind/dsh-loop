@@ -1,5 +1,5 @@
 {
-  "name": "dsh-plugin-loop",
+  "name": "dsh-loop",
   "description": "DeepSeek Harness plugin: a /loop slash command for timed recurring agent loops",
   "version": "0.1.0",
   "license": "MIT",
@@ -27,7 +27,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XiaoWind/dsh-plugin-loop.git"
+    "url": "git+https://github.com/XiaoWind/dsh-loop.git"
   },
   "dsh": {
     "bundle": {
