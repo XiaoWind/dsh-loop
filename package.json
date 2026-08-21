@@ -25,6 +25,10 @@
     "slash-command",
     "automation"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XiaoWind/dsh-plugin-loop.git"
+  },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
