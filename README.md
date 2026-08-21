@@ -11,6 +11,10 @@ the previous tick) until you stop it with `/loop stop`.
 ## Install
 
 ```sh
+# from GitHub (works immediately — no npm publish required)
+dsh plugin --profile web add git+https://github.com/XiaoWind/dsh-plugin-loop.git
+
+# or from npm, once published
 dsh plugin --profile web add dsh-plugin-loop
 ```
 

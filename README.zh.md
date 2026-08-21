@@ -10,6 +10,10 @@
 ## 安装
 
 ```sh
+# 从 GitHub 安装（立即可用，无需发布到 npm）
+dsh plugin --profile web add git+https://github.com/XiaoWind/dsh-plugin-loop.git
+
+# 或发布到 npm 后
 dsh plugin --profile web add dsh-plugin-loop
 ```
 
