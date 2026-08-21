@@ -36,6 +36,7 @@ Restart the Web app after installing.
 | `/loop 30m fix the tests` | Start a 30-minute loop toward an objective. |
 | `/loop fix the tests` | Start a loop toward an objective at the default interval. |
 | `/loop 1h30m` | Combined durations are supported. |
+| `/loop resume` | Resume the loop saved before a restart. |
 | `/loop` or `/loop status` | Show the running loop. |
 | `/loop stop` | Stop the loop. |
 | `/loop help` | Show help. |
@@ -52,10 +53,11 @@ interval applies.
 
 - **First tick is immediate.** Each later tick fires `interval` after the agent
   returns to idle, so a running turn is never interrupted.
-- **Process-local state.** The loop lives in memory for the lifetime of the live
-  agent and is not persisted across restarts or session resumes. If you want a
-  durable objective with "keep going until done" semantics, pair this with
-  DSH's built-in `/goal` and the goal round driver.
+- **Saved across restarts.** The loop config is persisted to
+  `$DSH_HOME/dsh-loop/<sessionId>.json`. When you reopen the session after a
+  restart, the plugin asks whether to continue the saved loop (`Continue` /
+  `Stop`); `/loop resume` restarts it manually when no prompt is available.
+  `/loop stop` discards the saved loop.
 - **Manual stop.** The loop runs until you run `/loop stop`, the agent is
   disposed, or the plugin is unloaded. There is no automatic completion
   detection.
