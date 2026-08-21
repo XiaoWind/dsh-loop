@@ -28,6 +28,27 @@ Restart the Web app after installing.
 > The plugin injects the `commands` service, so it activates only in profiles
 > that compose a command adapter — the shipped `web` profile does.
 
+## Update
+
+Pull the latest version of the plugin into an installed profile:
+
+```sh
+dsh plugin --profile web update dsh-loop
+```
+
+`dsh plugin` forwards to `pnpm update dsh-loop` inside the profile directory,
+which re-resolves the `github:XiaoWind/dsh-loop` dependency to the latest commit
+on the default branch. The lockfile pins a git dependency by commit hash, so a
+`version` bump is not required for the update to land. If pnpm has cached an old
+git resolution, re-pin it explicitly:
+
+```sh
+dsh plugin --profile web add github:XiaoWind/dsh-loop
+```
+
+Restart the Web app after updating — the bundle layer is composed at boot, so a
+running Web process does not hot-reload an installed plugin.
+
 ## Usage
 
 | Command | Result |

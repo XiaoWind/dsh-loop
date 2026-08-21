@@ -25,6 +25,25 @@ dsh plugin --profile web add dsh-loop
 > 本插件注入 `commands` 服务，因此只在包含命令适配器的 profile 中生效——官方
 > 自带的 `web` profile 就包含它。
 
+## 更新
+
+把已安装的插件更新到 GitHub 最新版：
+
+```sh
+dsh plugin --profile web update dsh-loop
+```
+
+`dsh plugin` 会把参数转发给 profile 目录里的 `pnpm update dsh-loop`，把
+`github:XiaoWind/dsh-loop` 重新解析到默认分支的最新 commit。锁文件按 commit
+钉住 git 依赖，因此不必升级 `version` 也能更新。若 pnpm 因缓存没有拉到新
+commit，可显式重新钉一次：
+
+```sh
+dsh plugin --profile web add github:XiaoWind/dsh-loop
+```
+
+更新后请重启 Web 应用——bundle 层在启动时组合，运行中的 Web 进程不会热更已安装的插件。
+
 ## 用法
 
 | 命令 | 作用 |
