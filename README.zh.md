@@ -91,9 +91,6 @@ dsh plugin --profile web add github:XiaoWind/dsh-loop
 ```sh
 # 语法检查
 node --check lib/index.js
-
-# 时长解析单元测试
-node test/duration.test.mjs
 ```
 
 插件是单文件 ESM Cordis 函数插件（`lib/index.js`），无需构建步骤。它导出

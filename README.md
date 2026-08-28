@@ -101,9 +101,6 @@ bare `/loop <objective>` with no leading duration token. The default is
 ```sh
 # syntax check
 node --check lib/index.js
-
-# duration-parser unit test
-node test/duration.test.mjs
 ```
 
 The plugin is a single-file ESM Cordis function plugin (`lib/index.js`) with no
