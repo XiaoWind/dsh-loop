@@ -16,3 +16,7 @@
         # Interval used when `/loop <objective>` has no leading duration
         # token. Milliseconds; default 10 minutes.
         defaultIntervalMs: 600000
+        # Runtime self-update (requires a commit-pinned install; see README).
+        autoUpdate: true
+        updateCheckIntervalMs: 21600000
+        updateInitialDelayMs: 90000

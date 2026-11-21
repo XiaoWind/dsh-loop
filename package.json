@@ -1,7 +1,7 @@
 {
   "name": "dsh-loop",
   "description": "DeepSeek Harness plugin: a /loop slash command for timed recurring agent loops",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "license": "MIT",
   "type": "module",
   "main": "lib/index.js",
@@ -34,11 +34,14 @@
       "patch": "./cordis.patch.yml"
     }
   },
+  "engines": {
+    "dsh": ">=0.2.2-rc.5 <0.3.0"
+  },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "^4.0.1",
-    "@deepseek-ai/dsh-commands": ">=0.1.7-rc.2 <0.3.0",
-    "@deepseek-ai/dsh-home-paths": ">=0.1.7-rc.2 <0.3.0",
-    "@deepseek-ai/dsh-llm": ">=0.1.7-rc.2 <0.3.0",
-    "@deepseek-ai/dsh-user-questions": ">=0.1.7-rc.2 <0.3.0"
+    "@deepseek-ai/cordis": "^4.1.0",
+    "@deepseek-ai/dsh-commands": ">=0.2.2-rc.5 <0.3.0",
+    "@deepseek-ai/dsh-home-paths": ">=0.2.2-rc.5 <0.3.0",
+    "@deepseek-ai/dsh-llm": ">=0.2.2-rc.5 <0.3.0",
+    "@deepseek-ai/dsh-user-questions": ">=0.2.2-rc.5 <0.3.0"
   }
 }

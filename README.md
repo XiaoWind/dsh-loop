@@ -15,29 +15,29 @@
 在桌面版的**插件管理**里添加插件时，填 GitHub 规格（注意不是包名）：
 
 ```
-github:XiaoWind/dsh-loop
+github:XiaoWind/dsh-loop#<40 位 commit sha>
 ```
 
-桌面版会在 profile 目录里执行 `pnpm add github:XiaoWind/dsh-loop`，从 GitHub
-拉取默认分支的最新 commit，校验通过后把本包加入 `dsh.profile.bundles`。
-**安装后按提示重启桌面应用**才会生效。
+**请钉住完整 40 位 commit。** DSH 插件管理器只对来源固定到完整 commit 的 git
+插件报告 `update: 'git'`，并允许它热更新；这也是本插件运行时自动更新的前提
+（见下文「自动更新」）。不带 `#<sha>` 也能安装，但自动更新会保持关闭。
+
+桌面版会在 profile 目录里执行 `pnpm add`，并用本包 `engines.dsh`
+（`>=0.2.2-rc.5 <0.3.0`）校验当前 DSH 版本；不兼容时拒绝安装并回滚
+`package.json`、`pnpm-lock.yaml` 和 `node_modules`。校验通过后把本包加入
+`dsh.profile.bundles`。**安装后按提示重启桌面应用**才会生效。
 
 > **必须使用 `github:owner/repo` 这种规格。** 本插件没有发布到 npm registry，
 > 只写 `dsh-loop` 会去 npm 上查找，安装会失败。
 
-> 桌面版在安装时会逐条校验本插件 `peerDependencies` 里的 `@deepseek-ai/dsh-*`
-> 范围是否接受当前运行时版本（即 `dsh-app-boot` 的版本，例如 `0.2.0-rc.2`）。
-> 不兼容时会拒绝安装，并回滚 `package.json`、`pnpm-lock.yaml` 和
-> `node_modules`；遇到这种情况请更新到最新版插件。
-
 ### CLI / Web 版
 
 ```sh
-# 从 GitHub 安装（立即可用，无需发布到 npm）
-dsh plugin --profile web add github:XiaoWind/dsh-loop
+# 从 GitHub 安装，并钉住完整 commit（自动更新的前提）
+dsh plugin --profile web add "github:XiaoWind/dsh-loop#<40 位 commit sha>"
 
-# 等价写法
-dsh plugin --profile web add git+https://github.com/XiaoWind/dsh-loop.git
+# 也可以只用默认分支安装（自动更新保持关闭）
+dsh plugin --profile web add github:XiaoWind/dsh-loop
 ```
 
 `dsh plugin` 会把参数转发给 `web` profile 目录内的 `pnpm`，随后自动把该包加入
@@ -47,25 +47,46 @@ dsh plugin --profile web add git+https://github.com/XiaoWind/dsh-loop.git
 > 本插件注入 `commands` 服务，因此只在包含命令适配器的 profile 中生效——官方
 > 自带的 `web` profile 就包含它。
 
-## 更新
+## 自动更新
 
-**桌面版**：在插件管理里重新安装该插件，或先移除再按
-`github:XiaoWind/dsh-loop` 重新添加。pnpm 可能缓存旧的 git 解析结果，移除后重新
-添加最可靠；更新后重启桌面应用。
+插件自带运行时自动更新，不需要外部脚本：
+
+1. 启动约 90 秒后检查一次 GitHub 上 `XiaoWind/dsh-loop` 的最新 commit，之后每
+   6 小时检查一次；
+2. 读取该 commit 的 `package.json`，仅当 `version` 比运行中的版本新时才更新；
+3. 通过 DSH 插件管理器把安装整体热更新到该 commit（固定到 40 位 sha 的 git
+   规格）。桌面版 profile 启用 HMR，插件会被移除并以新版本重新加载，无需重启；
+4. 成功或失败都会以会话通知的形式报告；失败不会改变正在运行的版本，下一轮检查
+   会重试。
+
+**前提**：本插件必须以固定 40 位 commit 的规格安装（见「安装」）。未固定的安装
+不会自动更新；`/loop update` 会提示重新安装的方式。
+
+可在 profile 的 `cordis.patch.yml` 中调整：
+
+```yaml
+- id: loop
+  config:
+    autoUpdate: true                 # false 关闭自动检查
+    updateCheckIntervalMs: 21600000  # 两次检查间隔（默认 6 小时）
+    updateInitialDelayMs: 90000      # 启动后首次检查延迟（默认 90 秒）
+```
+
+设置环境变量 `DSH_PLUGIN_AUTO_UPDATE=0` 可全局关闭自动更新。检查走
+`api.github.com` 与 `raw.githubusercontent.com`；若遇到未认证请求限流，可在环境
+中设置 `GITHUB_TOKEN`。手动触发一次检查：`/loop update`。
+
+### 手动更新（不使用自动更新时）
+
+**桌面版**：在插件管理里移除本插件，再按固定 commit 的规格重新添加；更新后重启
+桌面应用。
 
 **CLI / Web 版**：
 
 ```sh
 dsh plugin --profile web update dsh-loop
-```
-
-`dsh plugin` 会把参数转发给 profile 目录里的 `pnpm update dsh-loop`，把
-`github:XiaoWind/dsh-loop` 重新解析到默认分支的最新 commit。锁文件按 commit
-钉住 git 依赖，因此不必升级 `version` 也能更新。若 pnpm 因缓存没有拉到新
-commit，可显式重新钉一次：
-
-```sh
-dsh plugin --profile web add github:XiaoWind/dsh-loop
+# 或显式钉到新 commit
+dsh plugin --profile web add "github:XiaoWind/dsh-loop#<新 commit sha>"
 ```
 
 更新后请重启应用——bundle 层在启动时组合，运行中的进程不会热更已安装的插件。
@@ -81,6 +102,7 @@ dsh plugin --profile web add github:XiaoWind/dsh-loop
 | `/loop resume` | 恢复重启前保存的循环。 |
 | `/loop` 或 `/loop status` | 查看当前循环状态。 |
 | `/loop stop` | 停止循环。 |
+| `/loop update` | 立即检查一次插件更新。 |
 | `/loop help` | 查看帮助。 |
 
 间隔是「数字 + 单位」的无空格序列，单位可选 `ms`、`s`、`m`、`h`、`d`，例如
@@ -117,6 +139,7 @@ dsh plugin --profile web add github:XiaoWind/dsh-loop
 ```sh
 # 语法检查
 node --check lib/index.js
+node --check lib/self-update.js
 ```
 
 插件是单文件 ESM Cordis 函数插件（`lib/index.js`），无需构建步骤。它导出
