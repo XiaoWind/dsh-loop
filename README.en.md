@@ -69,6 +69,10 @@ The plugin updates itself at runtime, no external script required:
 4. success or failure is reported as a session notice; a failure leaves the
    running version untouched and the next check retries.
 
+A failed lookup (network error, HTTP error, or an unreadable `package.json`) is
+retried after 15 minutes; a failed install waits for the next check and is
+reported with a notice.
+
 **Prerequisite**: the plugin must be installed with a full-commit spec (see
 Install). A non-pinned install never auto-updates; `/loop update` tells you how
 to reinstall.
