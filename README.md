@@ -73,7 +73,7 @@ dsh plugin --profile web add github:XiaoWind/dsh-loop
 ```
 
 设置环境变量 `DSH_PLUGIN_AUTO_UPDATE=0` 可全局关闭自动更新。检查走
-`api.github.com` 与 `raw.githubusercontent.com`；若遇到未认证请求限流，可在环境
+`api.github.com`（contents API），失败时回退到 `raw.githubusercontent.com` 与 `cdn.jsdelivr.net`；若遇到未认证请求限流，可在环境
 中设置 `GITHUB_TOKEN`。手动触发一次检查：`/loop update`。
 
 ### 手动更新（不使用自动更新时）

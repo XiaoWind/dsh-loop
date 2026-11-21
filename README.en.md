@@ -84,7 +84,7 @@ Tune it in the profile's `cordis.patch.yml`:
 ```
 
 Set `DSH_PLUGIN_AUTO_UPDATE=0` to disable auto-update for all plugins. Checks
-use `api.github.com` and `raw.githubusercontent.com`; set `GITHUB_TOKEN` if you
+try `api.github.com` (contents API) first, then fall back to `raw.githubusercontent.com` and `cdn.jsdelivr.net`; set `GITHUB_TOKEN` if you
 hit unauthenticated rate limits. Trigger a check manually with `/loop update`.
 
 ### Manual update (when auto-update is off)
