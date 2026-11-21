@@ -1,7 +1,7 @@
-﻿{
+{
   "name": "dsh-loop",
   "description": "DeepSeek Harness plugin: a /loop slash command for timed recurring agent loops",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "license": "MIT",
   "type": "module",
   "main": "lib/index.js",
