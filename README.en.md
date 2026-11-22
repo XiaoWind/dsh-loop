@@ -18,8 +18,13 @@ Add the plugin in the desktop app's plugin manager using a GitHub spec — not t
 package name:
 
 ```
-github:XiaoWind/dsh-loop#<40-char commit sha>
+github:XiaoWind/dsh-loop#fd2f63d437fabcb1b03dd0072dd387600da1b873
 ```
+
+The hash above is a **real** 40-character commit sha (the 0.2.10 release commit of
+this repository); it is not a placeholder you have to invent. To pin a different
+commit, open it on the repository's Commits page and copy the full sha — or run
+`git rev-parse HEAD` in a local clone.
 
 **Pin the full 40-character commit.** DSH's plugin manager only reports
 `update: 'git'` (and allows a hot update) for a git source pinned to a full
@@ -40,7 +45,7 @@ back. **Restart the desktop app when prompted** for the plugin to take effect.
 
 ```sh
 # from GitHub, pinned to a full commit (required for auto-update)
-dsh plugin --profile web add "github:XiaoWind/dsh-loop#<40-char commit sha>"
+dsh plugin --profile web add "github:XiaoWind/dsh-loop#fd2f63d437fabcb1b03dd0072dd387600da1b873"
 
 # or install from the default branch (auto-update stays off)
 dsh plugin --profile web add github:XiaoWind/dsh-loop
